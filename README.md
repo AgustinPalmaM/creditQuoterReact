@@ -6,5 +6,4 @@ This project was made using vite with react and javascript, for styles is used t
 
 Finally you can chech a live demo deploy on netlify: https://effervescent-youtiao-84a1d1.netlify.app/
 
-![](public/preview.png)
 ![](public/preview_video.gif)
