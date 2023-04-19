@@ -1,12 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Button from "./components/Button";
-import { formatMoney } from "./helpers"
+import { formatMoney, calculateTotalPayment, calculateMonthlyPayment } from "./helpers"
 
 function App() {
 
   const [quantity, setQuantity] = useState(10000);
   const [paymentsMonths, setPaymentMonths] = useState(12);
+  const [totalPayment, setTotalPayment] = useState(0);
+  const [monthlyPayment, setMonthlyPayment] = useState(0);
+
+  useEffect(() => {
+    const totalPaymentCalculated = calculateTotalPayment(quantity, paymentsMonths);
+    setTotalPayment(totalPaymentCalculated)
+  },[quantity, paymentsMonths])
+
+  useEffect(() => {
+    const monthlyPaymentCalculated = calculateMonthlyPayment(totalPayment, paymentsMonths);
+    setMonthlyPayment(monthlyPaymentCalculated);
+  },[totalPayment])
 
   const MIN = 0;
   const MAX = 20000;
@@ -79,8 +91,8 @@ function App() {
         </h2>
 
         <h2 className="text-xl text-gray-500 text-center font-bold">{paymentsMonths} Months</h2>
-        <h2 className="text-xl text-gray-500 text-center font-bold">Total to pay</h2>
-        <h2 className="text-xl text-gray-500 text-center font-bold">Monthly payments</h2>
+        <h2 className="text-xl text-gray-500 text-center font-bold">Total to pay: {formatMoney(totalPayment)}</h2>
+        <h2 className="text-xl text-gray-500 text-center font-bold">Monthly payments: {formatMoney(monthlyPayment)}</h2>
       </div>
     </div>
   );
